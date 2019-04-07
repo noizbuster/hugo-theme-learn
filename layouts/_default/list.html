@@ -3,6 +3,10 @@
 <!--section-->
 {{ if eq .Kind "section" }}
 {{  .Content }}
+{{ range .Paginator.Pages }}
+<li><a href="{{.URL}}">{{.Title}}</a></li>
+{{ end }}
+{{ template "_internal/pagination.html" . }}
 {{ end }}
 
 <!--taxonomy-->
