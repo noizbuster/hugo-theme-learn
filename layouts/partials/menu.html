@@ -24,9 +24,13 @@
     </ul>
 
     {{ $disableShortcutsTitle := .Site.Params.DisableShortcutsTitle}}
-    {{with .Site.Menus.shortcuts}}
+    {{ with .Site.Menus.shortcuts }}
     <section id="shortcuts">
-      <h3>{{ if not $disableShortcutsTitle}}{{ T "Shortcuts-Title"}}{{ end }}</h3>
+      <h3>
+        {{ if not $disableShortcutsTitle }}
+        {{   T "Shortcuts-Title" }}
+        {{ end }}
+      </h3>
       <ul>
         {{ range sort . "Weight"}}
         <li>
@@ -35,8 +39,9 @@
         {{ end }}
       </ul>
     </section>
-    {{end}}
+    {{ end }}
 
+    <!--Selector for Language Change-->
     {{ if or .Site.IsMultiLingual $showvisitedlinks }}
     <section id="prefooter">
       <hr/>
@@ -46,6 +51,7 @@
           <a class="padding">
             <i class="fas fa-language fa-fw"></i>
             <div class="select-style">
+              <!--select translation only-->
               <select id="select-language" onchange="location = this.value;">
                 {{ $siteLanguages := .Site.Languages }}
                 {{ $pageLang := .Page.Lang }}
@@ -78,7 +84,7 @@
       </ul>
     </section>
     {{ end }}
-    <!-- end of multilingual section -->
+    <!--end of Selector for Language Change-->
 
     <section id="footer">
       {{ partial "menu-footer.html" . }}
@@ -93,15 +99,15 @@
 {{ $currentNode := .currentnode }}
 {{ with .sect }}
 {{   if .IsSection }}
-{{   safeHTML .Params.head }}
+{{     safeHTML .Params.head }}
 <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item
-    {{if .IsAncestor $currentNode }}parent{{end}}
-    {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
-    {{if .Params.alwaysopen}}parent{{end}}">
+  {{ if .IsAncestor $currentNode }}parent{{ end }}
+  {{ if eq .UniqueID $currentNode.UniqueID }}active{{ end }}
+  {{ if .Params.alwaysopen }}parent{{ end }}">
   <a href="{{.RelPermalink}}">
     {{ safeHTML .Params.Pre }}{{ or .Params.menuTitle .LinkTitle .Title }}
     {{ safeHTML .Params.Post }}
-    {{ if $showvisitedlinks}}
+    {{ if $showvisitedlinks }}
     <i class="fas fa-check read-icon"></i>
     {{ end }}
   </a>
@@ -128,7 +134,7 @@
     {{     end }}
     {{   end }}
     {{ end }}
-    </ul>
+  </ul>
   {{ end }}
 </li>
 {{   else }}
